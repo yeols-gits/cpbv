@@ -30,7 +30,7 @@ function onchange_radio(radio) {
         label.classList.remove('selected');
     })
 
-    const childrens = document.getElementById('list_positions').children;
+    const childrens = document.getElementById('list_position').children;
     for(let i = 0; i < childrens.length; i++) {
         const childName = childrens[i].name;
         const childValue = childrens[i].value;

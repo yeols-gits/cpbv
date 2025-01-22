@@ -49,6 +49,9 @@ body {
     border: 1px solid var(--comp-comm-selected-color) !important;
 }
 
+.selectable-items {
+    user-select: none;
+}
 .selectable-items:hover {
     color: var(--white-color) !important;
     background-color: var(--comp-comm-color) !important;

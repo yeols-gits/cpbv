@@ -21,7 +21,8 @@
             fn_init_search_comp('team');
             fn_init_search_comp('type');
             fn_init_search_comp('position');
-
+            onchange_radio(document.querySelector(`input[value=${display_type}]`));
+            
             await fn_init_list_data();
 
             [...document.getElementsByName('searchType')].forEach((radio) => {

@@ -93,8 +93,8 @@
             defaultItem.value = '';
             defaultItem.textContent = '선택';
 
-            const positions = window.commonData.positions;
-            const position_key = Object.keys(positions);
+            const positions = window.commonData.position;
+            const position_key = Object.keys(position);
             let select_position = document.getElementById('select_position');
             select_position.appendChild(defaultItem);
             position_key.forEach(key => {
