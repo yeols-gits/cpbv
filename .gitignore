@@ -11,6 +11,7 @@ pat.txt
 # 빌드 출력물
 dist/
 build/
+tools/
 
 # 운영체제 별 파일
 .DS_Store

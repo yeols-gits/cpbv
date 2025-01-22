@@ -1,0 +1,272 @@
+:root {
+    --comp-comm-color: slategray;
+    --comp-comm-light-color: lightgray;
+    --comp-comm-selected-color: rgb(19, 83, 109);
+    --comp-comm-context-color: rgb(86, 147, 175);
+    --white-color: white;
+}
+body {
+    text-align: center;
+}
+
+.loading-div {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: var(--white-color);
+    z-index: 99;
+    opacity: 0.7;
+
+    .progress-bar-span {
+        position: fixed;
+        background-color: transparent;
+        top: 50%;
+        left: 50%;
+        text-align: center;
+    }
+}
+
+.asc {
+    color: var(--comp-comm-selected-color) !important;
+    &::before {
+        content: "\2191";
+    }
+}
+
+.desc {
+    color: var(--comp-comm-selected-color) !important;
+    &::before {
+        content: "\2193";
+    }
+}
+
+.selected {
+    color: var(--white-color) !important;
+    /* background-color: var(--comp-comm-color) !important; */
+    background-color: var(--comp-comm-selected-color) !important;
+    border: 1px solid var(--comp-comm-selected-color) !important;
+}
+
+.selectable-items:hover {
+    color: var(--white-color) !important;
+    background-color: var(--comp-comm-color) !important;
+    cursor: pointer;
+}
+
+.detail-context-menu {
+    position: absolute;
+    display: none;
+    color: var(--comp-comm-context-color);
+    background-color: var(--white-color);
+    padding: 3px;
+    border-radius: 5px;
+    border: 1px solid var(--comp-comm-context-color);
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.detail-context-menu:hover {
+    background-color: var(--comp-comm-selected-color);
+    border: 1px solid var(--comp-comm-selected-color);
+    color: var(--white-color);
+}
+
+.context-row {
+    background-color: var(--comp-comm-context-color) !important;
+    color: var(--white-color) !important;
+    border: 1px solid var(--white-color);
+}
+
+.list-div {
+    overflow-y: auto;
+    height: 500px;
+}
+
+.list-div::-webkit-scrollbar {
+    width: 17px;
+}
+.list-div::-webkit-scrollbar-thumb {
+    background-color: var(--comp-comm-selected-color);
+    border-radius: 0px;
+    background-clip: padding-box;
+    border: 7px solid transparent;
+    border-radius: 15px;
+}
+.list-div::-webkit-scrollbar-track {
+    border-radius: 15px;
+    box-shadow: inset 0px 0px 5px var(--white-color);
+}
+
+.list {
+    width: 100%;
+    text-overflow: ellipsis;
+    border-collapse: collapse;
+    user-select: none;
+    thead {
+        margin: 10px 0px;
+        position: sticky;
+        top: 0px;
+        background-color:var(--white-color);
+        height: 30px;
+        th {
+            cursor: pointer;
+            color: var(--comp-comm-color);
+        }
+        .sortable:hover {
+            color: var(--comp-comm-selected-color);
+        }
+   }
+    tbody {
+        text-align: center;
+        tr {
+            height: 35px;
+            border-bottom: 1px solid var(--comp-comm-light-color);
+        }
+
+        tr:hover {
+            color: var(--white-color);
+            background-color: var(--comp-comm-light-color);
+        }
+        
+    }
+}
+input[type="radio"], input[type="checkbox"] {
+    display: none;
+}
+
+.search-div {
+    --border-radius: 8px;
+    --gap-size: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+    gap: 10px;
+    border-radius: var(--border-radius);
+
+    .type-switch {
+        display: inline-block;
+        width: 18%;
+        text-align: center;
+        label {
+            width: 100%;
+            display: inline-block;
+            box-sizing: border-box;
+            padding: 5px;    
+            cursor: pointer;
+            text-align: center;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--comp-comm-color);
+            margin: 5px;
+        }
+    }
+
+    .search-table {
+        width: 100%;
+        height: 60px;
+
+        tr:nth-child(1) {
+                td {
+                    border-top: 2px dotted var(--comp-comm-light-color);
+                }
+            }
+        tr {
+            text-align: center;
+            margin: 5px;
+            td {
+                margin: 5px;
+                padding: 3px;
+                border-bottom: 2px dotted var(--comp-comm-light-color);
+            }
+            td:nth-child(1) {
+                width: 20%;
+                
+            }
+            td:nth-child(2) {
+                width: 70%;
+            }
+            td:nth-child(3) {
+                width: 10%;
+            }
+
+            td:first-child {
+                border-right: 2px dotted var(--comp-comm-light-color);
+            }
+            
+            .insert-box {
+                padding: 5px;
+            }
+
+            .search-list {
+                max-width: 200px;
+                overflow: auto hidden;
+                white-space: nowrap;
+                padding: 5px;
+                label {
+                    border: 1px solid var(--comp-comm-color);
+                    color: var(--comp-comm-color);
+                    border-radius: 5px;
+                    padding: 0px 1px;
+                    margin: 3px;
+                }
+/* 
+                label:hover {
+                    background-color: var(--comp-comm-color);
+                    color: white;
+                } */
+            }
+
+            .search-list::-webkit-scrollbar {
+                width: 17px;
+            }
+            .search-list::-webkit-scrollbar-thumb {
+                background-color: var(--comp-comm-light-color);
+                border-radius: 0px;
+                background-clip: padding-box;
+                border: 7px solid transparent;
+                border-radius: 15px;
+            }
+            .search-list::-webkit-scrollbar-track {
+                border-radius: 15px;
+                box-shadow: inset 0px 0px 5px var(--white-color);
+            }
+        }
+    }
+    
+    button {
+        width: 100%;
+        /* height: 50%; */
+        background-color: var(--comp-comm-color);
+        border: none;
+        color: var(--white-color);
+        cursor: pointer;
+        border-radius: var(--border-radius);
+    }
+}
+
+.btn-span {
+    display: inline-block;
+    padding: 10px;
+    margin-top: 5px;
+    width: 100%;
+    box-sizing: border-box;
+
+    button:nth-last-child() {
+         /* { */
+            color: red;
+        /* } */
+    }
+}
+
+/* .submit-btn {
+    width: 70%;
+    margin-top: 10px;
+    height: 100%;
+    background-color: var(--comp-comm-color);
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 10px;
+} */

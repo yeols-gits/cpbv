@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/style.css">
+  <title>V24 스쿼드메이커</title>
+  <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+<body>
+    <script src="../scripts/init.js"></script>
+    <script src="../scripts/event.js"></script>
+    <script>
+        window.onload = async() => {
+            document.querySelector('.loading-div').style.display = '';
+            window.commonApi.initData();
+
+            const display_type = window.commonData.getSearchData('display_type');
+
+            fn_init_search_comp('year');
+            const teams = fn_init_search_comp('team');
+            const types = fn_init_search_comp('type');
+            const positions = fn_init_search_comp('position');
+
+            await fn_init_list_data();
+
+            [...document.getElementsByName('searchType')].forEach((radio) => {
+                if(radio.value == display_type) {
+                    document.querySelector(`label[for=${radio.id}]`).classList.add('selected');
+                }
+                radio.onclick = () => onchange_radio(radio);
+            })
+            const contextMenu = document.querySelector('.detail-context-menu');
+            document.addEventListener('click', (event) => {
+                if(event.target !== contextMenu) 
+                    contextMenu.style.display = 'none';
+            })
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if(!entry.isIntersecting) {
+                        document.querySelectorAll('.context-row').forEach((row) => {
+                            row.classList.remove('context-row');
+                        })
+                    }
+                })
+            });
+            observer.observe(contextMenu);
+
+            document.getElementById('search_btn').addEventListener('click', () => window.commonApi.search());
+            document.querySelector('.loading-div').style.display = 'none';
+        }
+      </script>
+      <!-- <h1>컴투스프로야구 V24 스쿼드메이커</h1> -->
+    <div class="loading-div">
+        <span class="progress-bar-span">로딩중..</span>        
+    </div>
+    <div class="detail-context-menu">상세카드보기</div>
+    <div class="search-div">
+        <span class="type-switch">
+            <input type="radio" id="batterRadio" name="searchType" value="B">
+            <label for="batterRadio" name="typeLabel">타자</label>
+            <input type="radio" id="pitcherRadio" name="searchType" value="P">
+            <label for="pitcherRadio" name="typeLabel">투수</label>
+        </span>
+        <table class="search-table">
+            <tr>
+                <td>
+                    연도
+                    <div>
+                        <input type="radio" name=""><label for="" onclick="fn_setYearMode();">범위</label>
+                        <input type="radio" name=""><label for="" onclick="fn_setYearMode();">개별</label>
+                    </div>
+                </td>
+                <td id="list_year" class="search-list" colspan="2"></td>
+                <td id="insert_year" colspan="2" class="insert-box" style="display:none;">  
+                    <input type="text" placeholder="시작연도">
+                     ~ 
+                    <input type="text" placeholder="종료연도">
+                </td>
+            </tr>
+            <tr>
+                <td>팀</td>
+                <td id="list_teams" class="search-list" colspan="2"></td>
+            </tr>
+            <tr>
+                <td>포지션</td>
+                <td id="list_positions" class="search-list" colspan="2"></td>
+            </tr>
+            <tr>
+                <td>종류</td>
+                <td id="list_types" class="search-list"></td>
+                <td><button id="search_btn">조회</button></td>
+            </tr>
+            
+        </table>
+    </div>
+    <div class="list-div">
+        <table id="list" class="list">
+            <thead></thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <span class="btn-span">
+        <button class="select-list-btn" onclick="fn_save();">선택 확인</button>
+        <button class="compare-btn" onclick="fn_save();">비교</button>
+        <button class="submit-btn" onclick="fn_save();">이동</button>
+    </span>
+</body>
+</html>

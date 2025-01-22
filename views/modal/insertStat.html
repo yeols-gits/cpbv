@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Electron App</title>
+  <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+<body>
+    <style>
+        :root {
+            --insert-div-width: 300px;
+            --insert-div-margin: 10px;
+        }
+        .input_list {
+            display: flex;
+            width: var(--insert-div-width);
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: var(--insert-div-margin) 0px;
+            .item {
+                width: 30%;
+                flex: 1 1 calc(30% - 10px);
+                box-sizing: border-box;
+
+                input {
+                    width: 100%;
+                    padding: 1px;
+
+                }
+            }
+        }
+        .submitBtn {
+            width: var(--insert-div-width);
+            margin: var(--insert-div-margin) 0px;
+            
+        }
+    </style>
+    <script type="module" src="common.js"></script>
+    <script>
+        window.onload = function() {
+            
+    
+            let defaultItem = document.createElement('option');
+            defaultItem.value = '';
+            defaultItem.textContent = '선택';
+
+            let select_year = document.getElementById('select_year');
+            const current_year = new Date().getFullYear();
+            select_year.appendChild(defaultItem);
+            for(let i = 0; i <= 100; i++) {
+                const year = 2024 - i;
+                if(year < 1982) {
+                    break;
+                }
+                const optionItem = document.createElement('option');
+                optionItem.value = year;
+                optionItem.textContent = year;
+                select_year.appendChild(optionItem);
+            }
+
+            defaultItem = document.createElement('option');
+            defaultItem.value = '';
+            defaultItem.textContent = '선택';
+
+            const teams = window.commonData.teams;
+            const team_key = Object.keys(teams);
+            let select_team = document.getElementById('select_team');
+            select_team.appendChild(defaultItem);
+            team_key.forEach(key => {
+                const optionItem = document.createElement('option');
+                optionItem.value = key;
+                optionItem.textContent = teams[key];
+                select_team.appendChild(optionItem);
+            }) 
+            
+            defaultItem = document.createElement('option');
+            defaultItem.value = '';
+            defaultItem.textContent = '선택';
+
+            const types = window.commonData.types;
+            const type_key = Object.keys(types);
+            let select_type = document.getElementById('select_type');
+            select_type.appendChild(defaultItem);
+            type_key.forEach(key => {
+                const optionItem = document.createElement('option');
+                optionItem.value = key;
+                optionItem.textContent = types[key];
+                select_type.appendChild(optionItem);
+            })    
+
+            defaultItem = document.createElement('option');
+            defaultItem.value = '';
+            defaultItem.textContent = '선택';
+
+            const positions = window.commonData.positions;
+            const position_key = Object.keys(positions);
+            let select_position = document.getElementById('select_position');
+            select_position.appendChild(defaultItem);
+            position_key.forEach(key => {
+                const optionItem = document.createElement('option');
+                optionItem.value = key;
+                optionItem.textContent = positions[key];
+                select_position.appendChild(optionItem);
+            })   
+            
+            const arr_stat = window.commonData.items;
+            let stat_list = document.getElementById('stat_list');
+            Object.keys(arr_stat).forEach((stat) => {
+                // const label = document.createElement('label');
+                // label.htmlFor = stat;
+                // label.textContent = arr_stat[stat];
+                // stat_list.appendChild(label);
+                const divItem = document.createElement('div');
+                divItem.className = 'item';
+                const listItem = document.createElement('input');
+                listItem.type = 'text';
+                listItem.id = stat
+                listItem.placeholder = arr_stat[stat];
+                
+                divItem.appendChild(listItem);
+                stat_list.appendChild(divItem);
+            })
+        }   
+
+        function fn_save() {
+            const dataForm = document.getElementById('statForm');
+
+            let chkResult = true;
+            const result = {};
+            const inputItems = dataForm.querySelectorAll('input');
+            for(let i = 0; i < inputItems.length; i++) {
+                const inputValue = inputItems[i].value;
+                const inputId = inputItems[i].id;
+                result[inputId] = inputValue;
+            }
+            const selectItems = dataForm.querySelectorAll('select');
+            for(let i = 0; i < selectItems.length; i++) {
+                const selectValue = selectItems[i].value;
+                const selectName = selectItems[i].name;
+
+                result[selectName] = selectValue;
+            }
+            window.commonApi.saveJSON((result));
+            console.log(result);
+        }
+
+      </script>
+    <h1>컴투스프로야구 V24 스쿼드메이커</h1>
+    <form id="statForm">
+        <select id="select_year" name="year"></select>
+        <select id="select_team" name="team"></select>
+        <select id="select_type" name="type"></select>
+        <select id="select_position" name="position"></select>
+        <span id="stat_list" class="input_list"></span>
+    </form>
+    <button class="submitBtn" onclick="fn_save();">저장</button>
+    
+</body>
+</html>
