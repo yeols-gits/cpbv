@@ -59,7 +59,7 @@ contextBridge.exposeInMainWorld('versions', { versions: process.versions });
     }
   };
 
-  const types = {
+  const type = {
     'G': '골글',
     'S': '시그',
     'I': '임팩',
@@ -69,13 +69,13 @@ contextBridge.exposeInMainWorld('versions', { versions: process.versions });
     'AL': '올스타'
   };
 
-  const acq_types = {
+  const acq_type = {
     'A': '일반',
     'B': '영입',
     'C': '조합',
   };
 
-  const teams = {
+  const team = {
     'kia': '기아',
     'samsung': '삼성',
     'lg': 'LG',
@@ -87,7 +87,7 @@ contextBridge.exposeInMainWorld('versions', { versions: process.versions });
     'nc': 'NC',
     'kiwoom': '키움'
   };
-  const positions = {
+  const position = {
     'C': '포수',
     '1B': '1루',
     '2B': '2루',
@@ -111,10 +111,10 @@ contextBridge.exposeInMainWorld('commonData', {
     stats: (display_type) => { return display_type == 'P' ? display_pit_stats() : display_bat_stats() }, 
     getColumns: [ bat_columns, pit_columns ],
     columns: (display_type) => { return display_type == 'P' ? pit_columns : bat_columns },
-    types: types,
-    acq_types: acq_types,
-    teams: teams,
-    positions: positions,
+    type: type,
+    acq_type: acq_type,
+    team: team,
+    position: position,
     setSearchData: async(key, data) => {
       if(!data) data = (key == 'display_type' || key == 'useYn') ? '' : [];
       sessionData.searchData[key] = data 

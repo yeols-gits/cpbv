@@ -22,15 +22,19 @@ function fn_init_search_comp(type) {
         let year = current_year;
         while(year > 1982) {
             year = current_year - idx;
+            const labelFor = type + '_' + year;
             const optionItem = document.createElement('input');
             optionItem.type = 'checkbox';
+            optionItem.id = labelFor;
+            optionItem.name = labelFor;
             optionItem.value = year;
             optionItem.textContent = year;
             fragment.appendChild(optionItem);
 
             labelItem = document.createElement('label');
             labelItem.textContent = year;
-            labelItem.htmlFor = type+'_all';
+            labelItem.htmlFor = labelFor;
+            labelItem.classList.add('selectable-items');
             labelItem.addEventListener('click', () => fn_setData(labelFor));
             fragment.appendChild(labelItem);
 
@@ -127,8 +131,8 @@ async function fn_init_list_data() {
 function fn_set_data_list(data_list, arr_stat, arr_data) {
     const fragment = document.createDocumentFragment();
     // td 리스트 생성
-    const types = window.commonData.types;
-    const positions = window.commonData.positions;
+    const types = window.commonData.type;
+    const positions = window.commonData.position;
     arr_data.forEach((data, index) => {
         const trItem = document.createElement('tr');
         trItem.name = data.idx;

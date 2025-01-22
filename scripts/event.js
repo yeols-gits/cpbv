@@ -93,7 +93,11 @@ async function fn_selectRow(trItem, data) {
     }
 }
 
-function fn_search() {
-    console.log(getSearchData());
-    console.log(getSelectedPlayer());
+async function fn_search() {
+    document.querySelector('.loading-div').style.display = '';
+    const table = document.getElementById('list');
+    table.querySelector('thead').innerHTML = '';
+    table.querySelector('tbody').innerHTML = '';
+    fn_init_list_data();
+    document.querySelector('.loading-div').style.display = 'none';
 }

@@ -122,8 +122,12 @@ ipcMain.handle('search', async (event, data, columns) => {
   for(const key in columns) {
     query += ` ${key},`;
   }
+  if(data.display_type == 'B') {
+    query += ` hotcold_normal || '-' || hotcold_cold AS hotcold,`;
+  }
   query += `
-          use_yn
+          pot_pow || ' / ' || pot_clu || ' / ' || pot_def AS pot
+        , use_yn
         , display_yn 
         , exist_yn
      FROM ${table}
@@ -137,10 +141,10 @@ ipcMain.handle('search', async (event, data, columns) => {
   query += `
     ORDER BY idx
     LIMIT 300`;
+    console.log(query);
   return new Promise((resolve, reject) => {
     db.serialize(() => {
       db.all(query, (err, rows) => {
-        console.log(rows);
         if(err) {
           reject(err);
         } else {

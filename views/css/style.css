@@ -65,6 +65,7 @@ body {
     border: 1px solid var(--comp-comm-context-color);
     font-size: 0.8rem;
     cursor: pointer;
+    user-select: none;
 }
 
 .detail-context-menu:hover {
