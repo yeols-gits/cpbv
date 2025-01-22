@@ -6,6 +6,7 @@ node_modules/
 
 # 환경 설정 파일
 .env
+pat.txt
 
 # 빌드 출력물
 dist/
