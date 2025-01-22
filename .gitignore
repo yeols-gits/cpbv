@@ -1,0 +1,16 @@
+# 로그 파일
+*.log
+
+# Node.js 의존성
+node_modules/
+
+# 환경 설정 파일
+.env
+
+# 빌드 출력물
+dist/
+build/
+
+# 운영체제 별 파일
+.DS_Store
+Thumbs.db
