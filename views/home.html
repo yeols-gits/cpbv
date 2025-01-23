@@ -51,12 +51,21 @@
             document.getElementById('search_btn').addEventListener('click', () => fn_search());
             document.querySelector('.loading-div').style.display = 'none';
         }
+
+        function fn_open_popup() {
+            const selectedPlayer = getSelectedPlayer();
+            if(selectedPlayer.length > 0) {
+                window.commonApi.openModal('compare');
+            } else {
+                alert('선택된 선수가 없습니다.');
+            }
+        } 
       </script>
       <!-- <h1>컴투스프로야구 V24 스쿼드메이커</h1> -->
     <div class="loading-div">
         <span class="progress-bar-span">로딩중..</span>        
     </div>
-    <div class="detail-context-menu">상세카드보기</div>
+    <div class="detail-context-menu">카드보기</div>
     <div class="search-div">
         <span class="type-switch">
             <input type="radio" id="batterRadio" name="searchType" value="B">
@@ -103,8 +112,7 @@
         </table>
     </div>
     <span class="btn-span">
-        <button class="select-list-btn" onclick="fn_save();">선택 확인</button>
-        <button class="compare-btn" onclick="fn_save();">비교</button>
+        <button class="select-list-btn" onclick="fn_open_popup();">선택 확인</button>
         <button class="submit-btn" onclick="fn_save();">이동</button>
     </span>
 </body>

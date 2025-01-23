@@ -98,6 +98,6 @@ async function fn_search() {
     const table = document.getElementById('list');
     table.querySelector('thead').innerHTML = '';
     table.querySelector('tbody').innerHTML = '';
-    fn_init_list_data();
+    await fn_init_list_data();
     document.querySelector('.loading-div').style.display = 'none';
 }

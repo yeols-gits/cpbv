@@ -1,17 +1,21 @@
-const { app, BrowserWindow, ipcMain, protocol } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const fs = require('fs').promises;
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 const iconv = require('iconv-lite');
 
-let mainWindow, db;
+let mainWindow, modalWindow, db;
 const dbPath = path.join(__dirname, 'data.sqlite3');
 const scripts = path.join(__dirname, 'scripts');
 const views = path.join(__dirname, 'views');
+
+const windowWidth = 900;
+const windowHeight = 820;
+
 app.whenReady().then(async () => {
   mainWindow = new BrowserWindow({
-    width: 900,
-    height: 820,
+    width: windowWidth,
+    height: windowHeight,
     resizable: false,
     webPreferences: {
       preload: path.join(scripts, 'preload.js'),
@@ -57,38 +61,6 @@ app.whenReady().then(async () => {
         else console.log('data closed Success');
     })
   })
-});
-
-ipcMain.on('save-json', async (event, data) => {
-    const data_keys = Object.keys(data);
-    // for (let key of data_keys) {
-    //     if(data[key] == null || data[key] == '' || typeof data[key] == 'undefined') {
-    //         event.reply('save-json-reply', { success: false, message: `${key} 데이터오류` });
-    //         return;
-    //     }
-    // }
-    let tableName = (data.position == 'P') ? 'pitchers' : 'batters';
-    
-    // DB Insert
-    const workType = data.workType;
-    let query = ``;
-    switch(workType) {
-      case "insert":
-        query = `INSERT INTO batters 
-        ( YEAR, NAME, TYPE, POSITION,
-         POW, DEX, CON, INT, SPD, DEF,
-         POT_POW, POT_CLU, POT_DEF,
-         HAND, ETC)
-        VALUES (
-          '2024', '강민호', 'golden', 'C',
-          68, 71, 72, 57, 55, 78,
-          4, 4, 4,
-          'R', '4성'
-        )`
-        break;
-      case "search": 
-        break;
-    }
 });
 
 ipcMain.handle('add-data', async (data) => {
@@ -141,7 +113,6 @@ ipcMain.handle('search', async (event, data, columns) => {
   query += `
     ORDER BY idx
     LIMIT 300`;
-    console.log(query);
   return new Promise((resolve, reject) => {
     db.serialize(() => {
       db.all(query, (err, rows) => {
@@ -154,3 +125,29 @@ ipcMain.handle('search', async (event, data, columns) => {
     })
   });
 });
+
+ipcMain.on('open-modal', (event, type) => {
+  modalWindow = new BrowserWindow({
+    parent: mainWindow,
+    modal: true,
+    width: windowWidth,
+    height: 400,
+    resizable: false,
+    frame: false,
+    transparent: true,
+    webPreferences: {
+      preload: path.join(scripts, 'preload.js'),
+      nodeIntegration: false,
+      enableRemoteModule: false,
+      contextIsolation: true,
+    }
+  });
+
+  modalWindow.loadFile(path.join(views, 'modal', `${type}.html`));
+})
+
+ipcMain.on('close-modal', (event) => {
+  if(modalWindow) {
+    modalWindow.close();
+  }
+})

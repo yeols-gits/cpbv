@@ -1,0 +1,49 @@
+:root {
+    --comp-comm-color: slategray;
+    --comp-comm-light-color: lightgray;
+    --comp-comm-selected-color: rgb(19, 83, 109);
+    --comp-comm-context-color: rgb(86, 147, 175);
+    --white-color: white;
+    --menu-bar-height: 18px;
+}
+body {
+    text-align: center;
+    overflow: hidden;
+}
+
+/* 모달 css */
+.modal {
+    background-color: var(--white-color);
+}
+
+.title-div {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: var(--menu-bar-height);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: var(--white-color);
+    background-color: var(--comp-comm-context-color);
+
+    button {
+        position: absolute;
+        right: 10px;
+        padding: 5px;
+        background-color: transparent;
+        border-color: transparent;
+        color: var(--white-color);
+        cursor: pointer;
+    }
+}
+
+.content-div {
+    position: absolute;
+    top: var(--menu-bar-height);
+    width: 100%;
+    height: 100%;
+}
+.list-div {
+
+}

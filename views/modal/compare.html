@@ -3,9 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/modal.css">
     <title>비교</title>
 </head>
 <body>
-    <h2>TEST</h2>
+    <script src="../../scripts/init.js"></script>
+    <script>
+        window.onload = () => {
+            fn_init_modal();
+        }
+
+    </script>
+    <div class="modal">
+        <span class="title-div">
+            <p>선수 확인</p>
+            <button class="close-btn">X</button>
+        </span>
+        <div class="content-div">
+            <table class="list-div"></table>
+            <button id="closeBtn" class="close-btn">닫기</button>
+        </div>
+    </div>
 </body>

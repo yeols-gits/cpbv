@@ -179,3 +179,16 @@ function fn_set_data_list(data_list, arr_stat, arr_data) {
     })
     data_list.appendChild(fragment);
 }
+
+function fn_init_modal() {
+    document.body.style.width = window.innerWidth + 'px';
+    document.body.style.height = window.innerHeight + 'px';
+    document.querySelector('.modal').style.width = window.innerWidth + 'px'; 
+    document.querySelector('.modal').style.height = window.innerHeight + 'px';
+    document.querySelector('.title-div').style.width = window.innerWidth + 'px'; 
+    document.querySelectorAll('.close-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            window.commonApi.closeModal();
+        })
+    });
+}

@@ -159,6 +159,8 @@ contextBridge.exposeInMainWorld('commonApi', {
     sessionData.selectedPlayer = [];
     return sessionData;
   },
+  openModal: (type) => ipcRenderer.send('open-modal', type),
+  closeModal: () => ipcRenderer.send('close-modal'),
 });
 
 contextBridge.exposeInMainWorld('commonFunc', {
