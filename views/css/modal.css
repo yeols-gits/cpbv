@@ -9,6 +9,9 @@
 body {
     text-align: center;
     overflow: hidden;
+    user-select: none;
+    margin: 0;
+    transform: translate(0px, 0px);
 }
 
 /* 모달 css */

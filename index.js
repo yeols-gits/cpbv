@@ -151,3 +151,13 @@ ipcMain.on('close-modal', (event) => {
     modalWindow.close();
   }
 })
+
+ipcMain.on('move-modal', (event, {deltaX, deltaY}) => {
+  const {x, y, width, height} = mainWindow.getBounds(); // 현재 창 위치 가져오기
+  modalWindow.setBounds({
+    x: deltaX - x,
+    y: deltaY - y,
+    width: width,
+    height: height,
+  });
+})

@@ -180,12 +180,45 @@ function fn_set_data_list(data_list, arr_stat, arr_data) {
     data_list.appendChild(fragment);
 }
 
+let isDragging = false;
+let offsetX = 0, offsetY = 0;
+let currentX = 0, currentY = 0;
 function fn_init_modal() {
+    const title_div = document.querySelector('.title-div');
+
     document.body.style.width = window.innerWidth + 'px';
     document.body.style.height = window.innerHeight + 'px';
     document.querySelector('.modal').style.width = window.innerWidth + 'px'; 
     document.querySelector('.modal').style.height = window.innerHeight + 'px';
-    document.querySelector('.title-div').style.width = window.innerWidth + 'px'; 
+    title_div.style.width = window.innerWidth + 'px'; 
+
+    title_div.addEventListener("mousedown", (event) => { 
+        event.preventDefault();
+        isDragging = true;
+
+        offsetX = event.clientX;
+        offsetY = event.clientY;
+        title_div.style.cursor = "grabbing";
+    });
+    document.addEventListener("mouseup", () => {
+        isDragging = false;
+        title_div.style.cursor = "default";
+    });
+    
+    document.addEventListener("mousemove", (event) => {
+        event.preventDefault();
+        if (isDragging) {
+          // 마우스 위치에 따라 div의 위치를 동적으로 업데이트
+          const deltaX = event.clientX - offsetX;
+          const deltaY = event.clientY - offsetY;
+          currentX += deltaX;
+          currentY += deltaY;
+          document.body.style.transform = `translate(${currentX}px, ${currentY}px)`;
+          offsetX = event.clientX;
+          offsetX = event.clientY;
+        }
+    });
+
     document.querySelectorAll('.close-btn').forEach(button => {
         button.addEventListener('click', () => {
             window.commonApi.closeModal();

@@ -274,10 +274,3 @@ input[type="radio"], input[type="checkbox"] {
     cursor: pointer;
     border-radius: 10px;
 } */
-
-
-/* 모달 css */
-.modal-div {
-    over-flo
-    background-color: var(--white-color);
-}

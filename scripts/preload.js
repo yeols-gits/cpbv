@@ -161,6 +161,7 @@ contextBridge.exposeInMainWorld('commonApi', {
   },
   openModal: (type) => ipcRenderer.send('open-modal', type),
   closeModal: () => ipcRenderer.send('close-modal'),
+  moveModal: (deltaX, deltaY) => ipcRenderer.send('move-modal', {deltaX, deltaY}),
 });
 
 contextBridge.exposeInMainWorld('commonFunc', {
