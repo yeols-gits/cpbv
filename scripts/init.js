@@ -192,32 +192,32 @@ function fn_init_modal() {
     document.querySelector('.modal').style.height = window.innerHeight + 'px';
     title_div.style.width = window.innerWidth + 'px'; 
 
-    title_div.addEventListener("mousedown", (event) => { 
-        event.preventDefault();
-        isDragging = true;
+    // title_div.addEventListener("mousedown", (event) => { 
+    //     event.preventDefault();
+    //     isDragging = true;
 
-        offsetX = event.clientX;
-        offsetY = event.clientY;
-        title_div.style.cursor = "grabbing";
-    });
-    document.addEventListener("mouseup", () => {
-        isDragging = false;
-        title_div.style.cursor = "default";
-    });
+    //     offsetX = event.clientX;
+    //     offsetY = event.clientY;
+    //     title_div.style.cursor = "grabbing";
+    // });
+    // document.addEventListener("mouseup", () => {
+    //     isDragging = false;
+    //     title_div.style.cursor = "default";
+    // });
     
-    document.addEventListener("mousemove", (event) => {
-        event.preventDefault();
-        if (isDragging) {
-          // 마우스 위치에 따라 div의 위치를 동적으로 업데이트
-          const deltaX = event.clientX - offsetX;
-          const deltaY = event.clientY - offsetY;
-          currentX += deltaX;
-          currentY += deltaY;
-          document.body.style.transform = `translate(${currentX}px, ${currentY}px)`;
-          offsetX = event.clientX;
-          offsetX = event.clientY;
-        }
-    });
+    // document.addEventListener("mousemove", (event) => {
+    //     event.preventDefault();
+    //     if (isDragging) {
+    //       // 마우스 위치에 따라 div의 위치를 동적으로 업데이트
+    //       const deltaX = event.clientX - offsetX;
+    //       const deltaY = event.clientY - offsetY;
+    //       currentX += deltaX;
+    //       currentY += deltaY;
+    //       document.body.style.transform = `translate(${currentX}px, ${currentY}px)`;
+    //       offsetX = event.clientX;
+    //       offsetX = event.clientY;
+    //     }
+    // });
 
     document.querySelectorAll('.close-btn').forEach(button => {
         button.addEventListener('click', () => {
