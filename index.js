@@ -33,7 +33,7 @@ app.whenReady().then(async () => {
     console.log('DB connecting success');
   });
   // mainWindow.loadFile(path.join(views, 'home.html'));
-  mainWindow.loadFile(path.join(views, 'squad.html'));
+  mainWindow.loadFile(path.join(views, 'squad.jsx'));
 
   const arrColumns = await mainWindow.webContents.executeJavaScript('commonData.getColumns');
   const batColumns = arrColumns[0];
